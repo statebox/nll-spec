@@ -57,9 +57,9 @@ As an example, encoding
 
 gives us
 
-| HEAD | ITEM | ITEM | ITEM | ITEM | ITEM | ITEM | ITEM |
-|------|------|------|------|------|------|------|------|
-| 14   | 0    | 2    | 3    | 0    | 4    | 0    | 1    |
+| HEAD | ITEM | ITEM | ITEM | ITEM | ITEM | ITEM | ITEM | ITEM |
+|------|------|------|------|------|------|------|------|------|
+| 16   | 0    | 0    | 2    | 3    | 0    | 4    | 0    | 1    |
 
 Another example, this time with signed integers
 
@@ -71,6 +71,17 @@ Another example, this time with signed integers
 
 gives us
 
-| HEAD | ITEM | ITEM | ITEM |
-|------|------|------|------|
-| 7    | -1   | 1    | 2    |
+| HEAD | ITEM | ITEM | ITEM | ITEM |
+|------|------|------|------|------|
+| 9    | 0    | -1   | 1    | 2    |
+
+some other examples:
+
+```
+[]      00
+[[]]    02 00
+[[0]]   04 00 01
+[[1]]   04 00 02
+[[-1]]  05 00 01
+```
+
