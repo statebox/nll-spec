@@ -1,6 +1,6 @@
 # NLL
 
-Compact binary encoding of list of list of numbers, using (signed) varints.
+A compact encoding of list of list of numbers, using (signed) varints.
 
 ### Specification
 
@@ -26,18 +26,21 @@ The header value *h* is either **even** or **odd**.
 
 ###### Delimiter
 
-The number zero is used as a delimiter, indicating the start of a new list. In order to still be able to encode a list containing zeros, we use a trivial bijection to a new set that does not include zero.
+The number zero is used as a delimiter, indicating the start of a new
+list.
 
-Let the negative numbers be untouched and shift the positive numbers one up/down.
+In order to still be able to encode a list containing zeros, we use a
+trivial mapping to the integers excluding zero.
 
 | x    | -3 | -2 | -1 | 0 | 1 | 2 | 3 |        |
 |------|----|----|----|---|---|---|---|--------|
 | F(x) | -3 | -2 | -1 | 1 | 2 | 3 | 4 | encode |
 | G(x) | -3 | -2 | -1 | 0 | 0 | 1 | 2 | decode |
 
-Here, *F* and *G* are inverses, so for all x, G(F(x)) = x.
+F leaves negative numbers untouched and shifts the positive numbers one
+up, and G does the inverse, so for all x, G(F(x)) = x.
 
-```language
+```
 F(x) := (x <  0) ? x : x + 1
 G(x) := (x <= 0) ? x : x - 1
 ```
